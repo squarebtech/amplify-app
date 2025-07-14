@@ -73,4 +73,6 @@ jobs:
           pwd
           ls -la
           cd cdk/${{ github.event.inputs.cdk_project_path }}
+          pwd
+          ls -la
           npx cdk deploy ${{ github.event.inputs.cdk_stack_name }} --require-approval never
