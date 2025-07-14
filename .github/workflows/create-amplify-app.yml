@@ -59,6 +59,7 @@ jobs:
 
       - name: Copy .env file to CDK project
         run: |
+          mkdir -p cdk/amplify/sbt-amplify-app/env
           cp amplify-app/${{ github.event.inputs.env_file }} cdk/${{ github.event.inputs.cdk_project_path }}/env/deploy.env
 
       - name: Deploy Amplify App via CDK
