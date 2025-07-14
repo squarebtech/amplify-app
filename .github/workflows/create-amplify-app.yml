@@ -6,6 +6,7 @@ on:
       cdk_repo:
         description: 'GitHub repo (owner/repo) containing the shared CDK code'
         required: true
+        default: 'bsnyder74/cdk'
         type: string
       cdk_ref:
         description: 'Git ref (branch/tag/SHA) for the CDK repo'
@@ -13,7 +14,7 @@ on:
         default: 'main'
         type: string
       cdk_project_path:
-        description: 'Path to the CDK project in the shared repo (e.g., cdk/amplify/sbt-amplify-app)'
+        description: 'Path to the CDK project in the shared repo (e.g., amplify/sbt-amplify-app)'
         required: true
         type: string
       env_file:
