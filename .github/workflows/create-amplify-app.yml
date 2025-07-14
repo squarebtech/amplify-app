@@ -20,6 +20,10 @@ on:
         description: 'Path to .env file in the Amplify app repo (e.g., .env/prod.env)'
         required: true
         type: string
+      cdk_stack_name:
+        description: 'Name of the CDK stack to deploy'
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -67,4 +71,4 @@ jobs:
           DOTENV_FILE: env/deploy.env
         run: |
           cd cdk/${{ github.event.inputs.cdk_project_path }}
-          npx cdk deploy --require-approval never
+          npx cdk deploy ${{ github.event.inputs.cdk_stack_name }} --require-approval never
