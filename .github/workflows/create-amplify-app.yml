@@ -1,4 +1,4 @@
-name: Deploy Amplify App via Shared CDK
+name: Create Amplify App via Shared CDK
 
 on:
   workflow_dispatch:
@@ -11,6 +11,10 @@ on:
         description: 'Git ref (branch/tag/SHA) for the CDK repo'
         required: false
         default: 'main'
+        type: string
+      cdk_project_path:
+        description: 'Path to the CDK project in the shared repo (e.g., cdk/amplify/sbt-amplify-app)'
+        required: true
         type: string
       env_file:
         description: 'Path to .env file in the Amplify app repo (e.g., .env/prod.env)'
@@ -45,21 +49,21 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_DEV_ROLE }}
+          role-to-assume: ${{ secrets.AWS_DEV_OIDC_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Install CDK dependencies
         run: |
-          cd cdk
+          cd cdk/${{ github.event.inputs.cdk_project_path }}
           npm ci
 
       - name: Copy .env file to CDK project
         run: |
-          cp amplify-app/${{ github.event.inputs.env_file }} cdk/env/deploy.env
+          cp amplify-app/${{ github.event.inputs.env_file }} cdk/${{ github.event.inputs.cdk_project_path }}/env/deploy.env
 
       - name: Deploy Amplify App via CDK
         env:
           DOTENV_FILE: env/deploy.env
         run: |
-          cd cdk
+          cd cdk/${{ github.event.inputs.cdk_project_path }}
           npx cdk deploy --require-approval never
