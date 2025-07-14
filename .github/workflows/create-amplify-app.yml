@@ -70,5 +70,7 @@ jobs:
         env:
           DOTENV_FILE: env/deploy.env
         run: |
+          pwd
+          ls -la
           cd cdk/${{ github.event.inputs.cdk_project_path }}
           npx cdk deploy ${{ github.event.inputs.cdk_stack_name }} --require-approval never
