@@ -40,6 +40,13 @@ jobs:
           # path: amplify-app
           path: ${{ github.repository }}
 
+      - name: Verify paths
+        run: |
+          echo "Checked out Repo: ${{ github.repository }}"
+          echo "Current Directory: $(pwd)"
+          echo "Contents:"
+          ls -la
+
       - name: Checkout Shared CDK Repo
         uses: actions/checkout@v4
         with:
