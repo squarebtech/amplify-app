@@ -37,7 +37,8 @@ jobs:
       - name: Checkout Amplify App Repo (Calling Repo)
         uses: actions/checkout@v4
         with:
-          path: amplify-app
+          # path: amplify-app
+          path: ${{ github.repository }}
 
       - name: Checkout Shared CDK Repo
         uses: actions/checkout@v4
